@@ -5,4 +5,7 @@ server.listen(11111, '127.0.0.1', () => {
 });
 
 server.on('connection', (socket) => {
+  socket.on('data', (chunk) => {
+
+  });
 });
