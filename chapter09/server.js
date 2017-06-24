@@ -1,19 +1,9 @@
 const net = require('net');
-const server = net.createServer();
 
-server.listen(11111, '127.0.0.1', () => {
-});
-
-server.on('connection', (socket) => {
-  socket.on('data', (chunk) => {
-
+const server = net.createServer((socket) => {
+  console.log('new connection:', server.connections);
+  socket.on('end', () => {
+    console.log('end connection:', server.connections);
   });
-
-  const ret = socket.write('hello');
-  if (ret === false) {
-    console.log(socket.bufferSize);
-  }
-  socket.on('drain', () => {
-    console.log(socket.bufferSize);
-  })
 });
+server.listen(11111);
