@@ -8,4 +8,9 @@ server.on('connection', (socket) => {
   socket.on('data', (chunk) => {
 
   });
+
+  const ret = socket.write('hello');
+  socket.on('drain', () => {
+
+  })
 });
