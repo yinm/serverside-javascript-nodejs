@@ -10,6 +10,9 @@ server.on('connection', (socket) => {
   });
 
   const ret = socket.write('hello');
+  if (ret === false) {
+    console.log(socket.bufferSize);
+  }
   socket.on('drain', () => {
 
   })
