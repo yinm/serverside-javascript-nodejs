@@ -1,9 +1,9 @@
 const net = require('net');
 
-const server = net.createServer({allowHalfOpen: true}, (socket) => {
-  console.log('new connection:', server.connections);
-  socket.on('end', () => {
-    console.log('end connection:', server.connections);
+const server = net.createServer((socket) => {
+  socket.end();
+  socket.on('close', () => {
+    console.log('socket closed');
   });
 });
 server.listen(11111);
