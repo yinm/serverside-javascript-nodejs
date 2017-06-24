@@ -14,6 +14,6 @@ server.on('connection', (socket) => {
     console.log(socket.bufferSize);
   }
   socket.on('drain', () => {
-
+    console.log(socket.bufferSize);
   })
 });
