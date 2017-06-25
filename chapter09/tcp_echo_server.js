@@ -20,10 +20,12 @@ let clients = {};
 
 // 接続開始ログ
 server.on('connection', (socket) => {
-  let status = server.connections + '/' + server.maxConnections;
-  let key = socket.remoteAddress + ':' + socket.remotePort;
-  console.log('Connection Start(' + status + ') - ' + key);
-  clients[key] = new Client(socket);
+  server.getConnections((err, count) => {
+    let status = count + '/' + server.maxConnections;
+    let key = socket.remoteAddress + ':' + socket.remotePort;
+    console.log('Connection Start(' + status + ') - ' + key);
+    clients[key] = new Client(socket);
+  });
 });
 
 // socket に対して data イベントリスナを登録する
@@ -45,9 +47,11 @@ server.on('connection', (socket) => {
 server.on('connection', (socket) => {
   let key = socket.remoteAddress + ':' + socket.remotePort;
   socket.on('end', () => {
-    let status = server.connections + '/' + server.maxConnections;
-    console.log('Connection End(' + status + ') - ' + key);
-    delete clients[key];
+    server.getConnections((err, count) => {
+      let status = count + '/' + server.maxConnections;
+      console.log('Connection End(' + status + ') - ' + key);
+      delete clients[key];
+    });
   });
 });
 
