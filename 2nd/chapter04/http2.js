@@ -1,5 +1,7 @@
 const http = require('http');
 http.createServer((req, res) => {
+  // req.url === '/10'
+  // ref:  https://nodejs.org/dist/latest-v8.x/docs/api/http.html#http_message_url
   let num = parseInt(req.url.slice(1));
   if (isNaN(num)) {
     res.end();
